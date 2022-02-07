@@ -11,21 +11,46 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="https://picsum.photos/32"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="https://picsum.photos/16"
-    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="inputContainer">
+      <input
+        type="text"
+        id="rectangleHeightBox"
+        placeholder="Rectangle Height"
+      /><input
+        type="text"
+        id="rectangleWidthBox"
+        placeholder="Rectangle Width"
+      /><button id="rectangleButton">Rectangle</button>
+      <input type="text" id="squareBox" placeholder="Side Length" /><button
+        id="squareButton"
+      >
+        Square
+      </button>
+      <input type="text" id="circleBox" placeholder="Circle Radius" /><button
+        id="circleButton"
+      >
+        Circle
+      </button>
+      <input
+        type="text"
+        id="triangleBox"
+        placeholder="Triangle Height"
+      /><button id="triangleButton">Triangle</button>
+    </div>
+    <div id="shapeContainer">shapes go here!</div>
+
+    <!-- <div class="sidenav">
+      <div id="sidenavShapeName">Shape Name:</div>
+      <div id="sidenavWidth">Width:</div>
+      <div id="sidenavHeight">Height</div>
+      <div id="sidenavRadius">Radius</div>
+      <div id="sidenavArea">Area</div>
+      <div id="sidenavPerimeter">Perimeter</div>
+    </div> -->
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
