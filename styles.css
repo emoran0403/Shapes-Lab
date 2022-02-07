@@ -1,3 +1,5 @@
+/* https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp */
+
 .sidenav {
   width: 200px;
   position: fixed;
@@ -25,4 +27,35 @@
   height: 600px;
   width: 600px;
   background-color: royalblue;
+}
+
+/* dimensions work as expected */
+#square {
+  width: 100px;
+  height: 100px;
+  background: red;
+}
+
+/* dimensions work as expected */
+#rectangle {
+  width: 200px;
+  height: 100px;
+  background: green;
+}
+
+/* only change width and height to be equal to the radius given from the input box */
+#circle {
+  width: 100px;
+  height: 100px;
+  background: purple;
+  border-radius: 50%;
+}
+
+/* either bottom + left or bottom + right must be equal to the height from the input box */
+#triangle {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent; /*if this is 0, the right angle will be towards the bottom left*/
+  border-right: 50px solid transparent; /*if this is 0, the right angle will be towards the bottom right*/
+  border-bottom: 100px solid yellow; /*this controls the height*/
 }
