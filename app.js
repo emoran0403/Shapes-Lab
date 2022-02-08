@@ -71,8 +71,7 @@ class Circle extends Shape {
 
   calculateArea() {
     const radius = this.width / 2;
-
-    return Math.PI * radius * radius;
+    return Math.trunc(Math.PI * radius * radius * 100) / 100;
   }
 
   //   resize(radius) {
