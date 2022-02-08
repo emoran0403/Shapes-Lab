@@ -56,6 +56,10 @@ class Triangle extends Shape {
   constructor(height) {
     super(0, height);
   }
+
+  calculateArea() {
+    return 0.5 * this.height * this.height;
+  }
 }
 
 class Circle extends Shape {
@@ -139,7 +143,7 @@ triangleButton.click(() => {
 //*********************************************************************** Functions ****************************************************/
 
 function isNumeric(str) {
-  //checks if the input is a string containing a number and only a number
+  // return true when input is a string containing a number and only a number
   if (typeof str != "string") return false; // we only process strings!
   return (
     !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
@@ -151,8 +155,8 @@ let failMessage = function () {
   // this fires when the user attempts to input something nonnumerical
   Swal.fire({
     icon: "error",
-    title: "Oops...",
-    text: "Numbers only please!",
+    title: "Numbers only please!",
+    text: "...and also check that you filled in both inputs for the rectangle!",
     footer: '<a href="https://en.wikipedia.org/wiki/Number">Why do I have this issue?</a>',
   });
 };
