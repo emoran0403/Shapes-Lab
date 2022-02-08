@@ -1,11 +1,11 @@
 /**
  * todo - get some nice styling
- * todo - draw shapes in the shapeContainer
  * todo - Clicking on any shape should call a method named describe(), which should update the statistics in the sidepanel in index.html
  * todo - Double clicking on any shape should remove the shape from the screen
- * todo - Every shape draws itself when it is created. The shape will be drawn according to the size specified when the shape was created
- * todo - and the shape will be placed in a random location within the shape canvas
- * todo - set shape dimensions with inline styling??
+ * * - draw shapes in the shapeContainer
+ * * - Every shape draws itself when it is created. The shape will be drawn according to the size specified when the shape was created
+ * * - and the shape will be placed in a random location within the shape canvas
+ * * - set shape dimensions with inline styling??
  * * - Circles should be purple, Squares should be red, Triangles should be yellow, and Rectangles should be green
  * * - clearing input after submitting => //? selector.val('') sets the value to an empty string, which will show the placeholder html text
  * * - need to find out how to sanitize the inputs to only accept numbers > 0 to 500, and both params under 250 for circles
@@ -19,8 +19,13 @@ class Shape {
     this.div = document.createElement(`div`);
     this.div.style.left = Shape.randomPosition(this.width);
     this.div.style.top = Shape.randomPosition(this.height);
+    // this.div.click(this.testFunc());
     shapeContainer.append(this.div);
   }
+
+  // testFunc() {
+  //   console.log(`click testfunc is working`);
+  // }
 
   static randomPosition(sizeOffSet) {
     let somePosition = Math.floor(Math.random() * (601 - sizeOffSet));
