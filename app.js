@@ -5,9 +5,10 @@
  * todo - Double clicking on any shape should remove the shape from the screen
  * todo - Every shape draws itself when it is created. The shape will be drawn according to the size specified when the shape was created
  * todo - and the shape will be placed in a random location within the shape canvas
+ * todo - set shape dimensions with inline styling??
  * * - Circles should be purple, Squares should be red, Triangles should be yellow, and Rectangles should be green
  * * - clearing input after submitting => //? selector.val('') sets the value to an empty string, which will show the placeholder html text
- * ! - need to find out how to sanitize the inputs to only accept numbers > 0 to 500, and both params under 250 for circles
+ * * - need to find out how to sanitize the inputs to only accept numbers > 0 to 500, and both params under 250 for circles
  * => only numerical input is accepted, need to further check for numbers within a range that disallows drawing a shape outside the box
  */
 
@@ -16,7 +17,7 @@ class Shape {
     this.width = width;
     this.height = height;
     this.div = document.createElement(`div`);
-    shapeContainer.appendChild(this.div);
+    shapeContainer.append(this.div);
   }
 
   get area() {
@@ -39,6 +40,8 @@ class Square extends Shape {
   // area does not need to be changed
   constructor(sideLength) {
     super(sideLength, sideLength);
+    this.div.style.height = `${sideLength}px`;
+    this.div.style.width = `${sideLength}px`;
     this.div.classList.add(`square`);
   }
 }
@@ -49,21 +52,9 @@ class Rectangle extends Shape {
 
   constructor(width, height) {
     super(width, height);
+    this.div.style.height = `${height}px`;
+    this.div.style.width = `${width}px`;
     this.div.classList.add(`rectangle`);
-  }
-}
-
-class Triangle extends Shape {
-  // (0, height) to comply with css styling for right isosceles
-  // needs to call area, then divide by 2
-
-  constructor(height) {
-    super(0, height);
-    this.div.classList.add(`triangle`);
-  }
-
-  calculateArea() {
-    return 0.5 * this.height * this.height;
   }
 }
 
@@ -72,6 +63,8 @@ class Circle extends Shape {
   // area needs to take either width or height, then divide by 2 to get back to radius, then * radius * pi
   constructor(radius) {
     super(2 * radius, 2 * radius);
+    this.div.style.height = `${radius}px`;
+    this.div.style.width = `${radius}px`;
     this.div.classList.add(`circle`);
   }
 
@@ -84,6 +77,24 @@ class Circle extends Shape {
   //     super.resize(2 * radius, 2 * radius);
   //   }
 }
+
+class Triangle extends Shape {
+  // (0, height) to comply with css styling for right isosceles
+  // needs to call area, then divide by 2
+
+  constructor(height) {
+    super(0, height);
+    this.div.style.borderRight = `${height}px solid transparent`;
+    this.div.style.borderBottom = `${height}px solid yellow`;
+    // this.div.css(border)
+    this.div.classList.add(`triangle`);
+  }
+
+  calculateArea() {
+    return 0.5 * this.height * this.height;
+  }
+}
+
 let shapeContainer = $(`#shapeContainer`);
 
 let rectangleHeightBox = $(`#rectangleHeightBox`);

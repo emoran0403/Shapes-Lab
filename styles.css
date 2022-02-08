@@ -31,22 +31,22 @@
 
 /* dimensions work as expected */
 .square {
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
   background: red;
 }
 
 /* dimensions work as expected */
 .rectangle {
-  width: 200px;
-  height: 100px;
+  /* width: 200px;
+  height: 100px; */
   background: green;
 }
 
 /* only change width and height to be equal to the radius given from the input box */
 .circle {
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
   background: purple;
   border-radius: 50%;
 }
@@ -55,7 +55,10 @@
 .triangle {
   width: 0;
   height: 0;
-  border-left: 50px solid transparent; /*if this is 0, the right angle will be towards the bottom left*/
-  border-right: 50px solid transparent; /*if this is 0, the right angle will be towards the bottom right*/
-  border-bottom: 100px solid yellow; /*this controls the height*/
+  /*if border-left is 0, the right angle will be towards the bottom left*/
+  border-left: 0px solid transparent;
+  /*if border-right is 0, the right angle will be towards the bottom right*/
+  /* border-right: 50px solid transparent; */
+  /*border-bottom controls the height*/
+  /* border-bottom: 100px solid yellow; */
 }
