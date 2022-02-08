@@ -27,6 +27,7 @@
   height: 600px;
   width: 600px;
   background-color: royalblue;
+  position: relative;
 }
 
 /* dimensions work as expected */
@@ -34,6 +35,7 @@
   /* width: 100px;
   height: 100px; */
   background: red;
+  position: absolute;
 }
 
 /* dimensions work as expected */
@@ -41,6 +43,7 @@
   /* width: 200px;
   height: 100px; */
   background: green;
+  position: absolute;
 }
 
 /* only change width and height to be equal to the radius given from the input box */
@@ -49,6 +52,7 @@
   height: 100px; */
   background: purple;
   border-radius: 50%;
+  position: absolute;
 }
 
 /* either bottom + left or bottom + right must be equal to the height from the input box */
@@ -61,4 +65,5 @@
   /* border-right: 50px solid transparent; */
   /*border-bottom controls the height*/
   /* border-bottom: 100px solid yellow; */
+  position: absolute;
 }

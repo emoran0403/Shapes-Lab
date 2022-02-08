@@ -17,9 +17,16 @@ class Shape {
     this.width = width;
     this.height = height;
     this.div = document.createElement(`div`);
+    this.div.style.left = Shape.randomPosition();
+    this.div.style.top = Shape.randomPosition();
     shapeContainer.append(this.div);
   }
 
+  static randomPosition() {
+    let somePosition = Math.floor(Math.random() * 350);
+    return `${somePosition}px`;
+  }
+  // my next challenge is playing with the numbers to make sure there are no shapes going outside the border
   get area() {
     return this.calculateArea();
   }
