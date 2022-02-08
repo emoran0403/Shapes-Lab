@@ -15,6 +15,8 @@ class Shape {
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.div = document.createElement(`div`);
+    shapeContainer.appendChild(this.div);
   }
 
   get area() {
@@ -37,6 +39,7 @@ class Square extends Shape {
   // area does not need to be changed
   constructor(sideLength) {
     super(sideLength, sideLength);
+    this.div.classList.add(`square`);
   }
 }
 
@@ -46,6 +49,7 @@ class Rectangle extends Shape {
 
   constructor(width, height) {
     super(width, height);
+    this.div.classList.add(`rectangle`);
   }
 }
 
@@ -55,6 +59,7 @@ class Triangle extends Shape {
 
   constructor(height) {
     super(0, height);
+    this.div.classList.add(`triangle`);
   }
 
   calculateArea() {
@@ -67,6 +72,7 @@ class Circle extends Shape {
   // area needs to take either width or height, then divide by 2 to get back to radius, then * radius * pi
   constructor(radius) {
     super(2 * radius, 2 * radius);
+    this.div.classList.add(`circle`);
   }
 
   calculateArea() {
@@ -78,6 +84,7 @@ class Circle extends Shape {
   //     super.resize(2 * radius, 2 * radius);
   //   }
 }
+let shapeContainer = $(`#shapeContainer`);
 
 let rectangleHeightBox = $(`#rectangleHeightBox`);
 let rectangleWidthBox = $(`#rectangleWidthBox`);
@@ -95,67 +102,89 @@ let triangleButton = $(`#triangleButton`);
 let shapes = [];
 
 rectangleButton.click(() => {
-  if (isNumeric(rectangleWidthBox.val()) && isNumeric(rectangleHeightBox.val())) {
-    // creates a new instance of a Rectangle
-    let newRect = new Rectangle(rectangleWidthBox.val(), rectangleHeightBox.val());
+  // creates a new instance of a Rectangle
+  if (onlyNums(rectangleWidthBox.val()) && onlyNums(rectangleHeightBox.val())) {
+    let newRect = new Rectangle(decimalCorrector(rectangleWidthBox.val()), decimalCorrector(rectangleHeightBox.val()));
     console.log(newRect); //* logging
     clearInputs();
-  } else {
-    failMessage();
   }
 });
 
 squareButton.click(() => {
-  if (isNumeric(squareBox.val())) {
-    // creates a new instance of a Square
-    let newSquare = new Square(squareBox.val());
+  // creates a new instance of a Square
+  if (onlyNums(squareBox.val())) {
+    let newSquare = new Square(decimalCorrector(squareBox.val()));
     console.log(newSquare); //* logging
     clearInputs();
-  } else {
-    failMessage();
   }
 });
 
 circleButton.click(() => {
-  if (isNumeric(circleBox.val())) {
-    // creates a new instance of a Circle
-    let newCircle = new Circle(circleBox.val());
+  // creates a new instance of a Circle
+  if (onlyNums(circleBox.val())) {
+    let newCircle = new Circle(decimalCorrector(circleBox.val()));
     console.log(newCircle); //* logging
     clearInputs();
-  } else {
-    failMessage();
   }
 });
 
 triangleButton.click(() => {
   // creates a new instance of a Triangle
-
-  if (isNumeric(triangleBox.val())) {
-    let newTriangle = new Triangle(triangleBox.val());
+  if (onlyNums(triangleBox.val())) {
+    let newTriangle = new Triangle(decimalCorrector(triangleBox.val()));
     console.log(newTriangle); //* logging
     clearInputs();
-  } else {
-    failMessage();
   }
 });
 
 //*********************************************************************** Functions ****************************************************/
 
-function isNumeric(str) {
-  // return true when input is a string containing a number and only a number
-  if (typeof str != "string") return false; // we only process strings!
+function onlyNums(str) {
+  // return true when input is a string containing a number within acceptable values (0.01-250)
+  if (typeof str != "string") {
+    notNumFail();
+    return false; // fails here if input is not a string
+  }
+  if (str <= 0.09) {
+    tooSmallFail();
+    return false; // fails here when input is too small
+  }
+  if (str > 249.99) {
+    tooBigFail();
+    return false; // fails here when input is too big
+  }
   return (
     !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
     !isNaN(parseFloat(str))
   ); // ...and ensure strings of whitespace fail
 }
 
-let failMessage = function () {
+let notNumFail = function () {
   // this fires when the user attempts to input something nonnumerical
   Swal.fire({
     icon: "error",
-    title: "Numbers only please!",
-    text: "...and also check that you filled in both inputs for the rectangle!",
+    title: "Oops...",
+    text: "Numbers only please!",
+    footer: '<a href="https://en.wikipedia.org/wiki/Number">Why do I have this issue?</a>',
+  });
+};
+
+let tooSmallFail = function () {
+  // this fires when the user attempts to input something nonnumerical
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Please enter a number from 0.1 or greater",
+    footer: '<a href="https://en.wikipedia.org/wiki/Number">Why do I have this issue?</a>',
+  });
+};
+
+let tooBigFail = function () {
+  // this fires when the user attempts to input something nonnumerical
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Please enter a number smaller than 250",
     footer: '<a href="https://en.wikipedia.org/wiki/Number">Why do I have this issue?</a>',
   });
 };
@@ -167,4 +196,12 @@ let clearInputs = function () {
   squareBox.val("");
   circleBox.val("");
   triangleBox.val("");
+};
+
+let decimalCorrector = function (num) {
+  // this takes input and sets it to 2 decimal places
+  let floatNum = parseFloat(num); // sets floatNum to a decimal number
+  let twoPlaces = floatNum.toFixed(2); // rounds floatNum to 2 decimal places
+
+  return twoPlaces;
 };

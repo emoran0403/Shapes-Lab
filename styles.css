@@ -30,21 +30,21 @@
 }
 
 /* dimensions work as expected */
-#square {
+.square {
   width: 100px;
   height: 100px;
   background: red;
 }
 
 /* dimensions work as expected */
-#rectangle {
+.rectangle {
   width: 200px;
   height: 100px;
   background: green;
 }
 
 /* only change width and height to be equal to the radius given from the input box */
-#circle {
+.circle {
   width: 100px;
   height: 100px;
   background: purple;
@@ -52,7 +52,7 @@
 }
 
 /* either bottom + left or bottom + right must be equal to the height from the input box */
-#triangle {
+.triangle {
   width: 0;
   height: 0;
   border-left: 50px solid transparent; /*if this is 0, the right angle will be towards the bottom left*/
