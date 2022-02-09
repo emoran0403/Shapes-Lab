@@ -1,7 +1,7 @@
 /* https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp */
 
 .sidenav {
-  width: 290px;
+  width: 310px;
   position: fixed;
   z-index: 1;
   top: 30px;
@@ -66,4 +66,17 @@
   /*border-bottom controls the height*/
   /* border-bottom: 100px solid yellow; */
   position: absolute;
+}
+
+.rotate {
+  animation: rotation 5s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }

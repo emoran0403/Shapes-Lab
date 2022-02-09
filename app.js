@@ -1,7 +1,7 @@
 /**
- * todo - get some nice styling
- * todo - Clicking on any shape should call a method named describe(), which should update the statistics in the sidepanel in index.html
- * todo - Double clicking on any shape should remove the shape from the screen
+ * * - get some nice styling
+ * * - Clicking on any shape should call a method named describe(), which should update the statistics in the sidepanel in index.html
+ * * - Double clicking on any shape should remove the shape from the screen
  * * - draw shapes in the shapeContainer
  * * - Every shape draws itself when it is created. The shape will be drawn according to the size specified when the shape was created
  * * - and the shape will be placed in a random location within the shape canvas
@@ -47,10 +47,14 @@ class Shape {
     return this.width * this.height;
   }
 
-  //   resize(width, height) {
-  //     this.width = width;
-  //     this.height = height;
-  //   }
+  get perimeter() {
+    return this.calculatePerimeter();
+  }
+
+  calculatePerimeter() {
+    return 2 * this.width + 2 * this.height;
+  }
+
   describe() {
     navName.text(`Shape Name: ${this.name}`);
 
@@ -64,10 +68,10 @@ class Shape {
 
     if (this.name === `Circle`) {
       navRadius.text(`Radius: ${this.width / 2}`);
-      navPerimeter.text(`Circumference: `);
+      navPerimeter.text(`Circumference: ${this.perimeter}px`);
     } else {
       navRadius.text(`Radius: n/a`);
-      navPerimeter.text(`Perimeter: `);
+      navPerimeter.text(`Perimeter: ${this.perimeter}px`);
     }
 
     navArea.text(`Area: ${this.area}px²`);
@@ -86,8 +90,6 @@ class Shape {
 
     // console.log(`double click worked!`); //*logging
   }
-
-  calculatePerimeter() {}
 }
 
 class Square extends Shape {
@@ -97,7 +99,7 @@ class Square extends Shape {
     super(sideLength, sideLength);
     // this.div.style.height = `${sideLength}px`;
     // this.div.style.width = `${sideLength}px`;
-    this.div.addClass(`square`);
+    this.div.addClass(`square shape`);
     this.name = `Square`;
   }
 }
@@ -110,7 +112,7 @@ class Rectangle extends Shape {
     super(width, height);
     // this.div.style.height = `${height}px`;
     // this.div.style.width = `${width}px`;
-    this.div.addClass(`rectangle`);
+    this.div.addClass(`rectangle shape`);
     this.name = `Rectangle`;
   }
 }
@@ -122,7 +124,7 @@ class Circle extends Shape {
     super(2 * radius, 2 * radius);
     // this.div.style.height = `${radius}px`;
     // this.div.style.width = `${radius}px`;
-    this.div.addClass(`circle`);
+    this.div.addClass(`circle shape`);
     this.name = `Circle`;
   }
 
@@ -130,10 +132,10 @@ class Circle extends Shape {
     const radius = this.width / 2;
     return Math.trunc(Math.PI * radius * radius * 100) / 100;
   }
-
-  //   resize(radius) {
-  //     super.resize(2 * radius, 2 * radius);
-  //   }
+  calculatePerimeter() {
+    const radius = this.width / 2;
+    return Math.trunc(Math.PI * 2 * radius * 100) / 100;
+  }
 }
 
 class Triangle extends Shape {
@@ -147,12 +149,15 @@ class Triangle extends Shape {
     this.div.css("borderRight", `${height}px solid transparent`); // this is dom styling
     this.div.css("borderBottom", `${height}px solid yellow`);
     // this.div.css(border)
-    this.div.addClass(`triangle`);
+    this.div.addClass(`triangle shape`);
     this.name = `Triangle`;
   }
 
   calculateArea() {
     return 0.5 * this.height * this.height;
+  }
+  calculatePerimeter() {
+    return Math.trunc((2 + Math.sqrt(2)) * this.height);
   }
 }
 
@@ -178,6 +183,8 @@ let circleButton = $(`#circleButton`);
 let triangleBox = $(`#triangleBox`);
 let triangleButton = $(`#triangleButton`);
 
+let funButton = $(`#funButton`);
+
 let shapes = [];
 
 rectangleButton.click(() => {
@@ -185,6 +192,7 @@ rectangleButton.click(() => {
   if (onlyNums(rectangleWidthBox.val()) && onlyNums(rectangleHeightBox.val())) {
     let newRect = new Rectangle(decimalCorrector(rectangleWidthBox.val()), decimalCorrector(rectangleHeightBox.val()));
     console.log(newRect); //* logging
+    addRotating();
     clearInputs();
   }
 });
@@ -194,6 +202,7 @@ squareButton.click(() => {
   if (onlyNums(squareBox.val())) {
     let newSquare = new Square(decimalCorrector(squareBox.val()));
     console.log(newSquare); //* logging
+    addRotating();
     clearInputs();
   }
 });
@@ -203,6 +212,7 @@ circleButton.click(() => {
   if (onlyNums(circleBox.val())) {
     let newCircle = new Circle(decimalCorrector(circleBox.val()));
     console.log(newCircle); //* logging
+    addRotating();
     clearInputs();
   }
 });
@@ -212,7 +222,21 @@ triangleButton.click(() => {
   if (onlyNums(triangleBox.val())) {
     let newTriangle = new Triangle(decimalCorrector(triangleBox.val()));
     console.log(newTriangle); //* logging
+    addRotating();
     clearInputs();
+  }
+});
+
+let rotateState = false;
+
+funButton.click(() => {
+  // toggles the `rotate` class on all shapes in the shapeContainer div
+  if (rotateState) {
+    rotateState = false;
+    shapeContainer.children().removeClass(`rotate`);
+  } else {
+    rotateState = true;
+    shapeContainer.children().addClass(`rotate`);
   }
 });
 
@@ -283,4 +307,11 @@ let decimalCorrector = function (num) {
   let twoPlaces = floatNum.toFixed(2); // rounds floatNum to 2 decimal places
 
   return twoPlaces;
+};
+
+let addRotating = function () {
+  // allows for adding new shapes that will rotate while rotateState is true
+  if (rotateState) {
+    shapeContainer.children().addClass(`rotate`);
+  }
 };
