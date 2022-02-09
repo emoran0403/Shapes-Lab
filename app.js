@@ -19,7 +19,8 @@ class Shape {
     this.div = document.createElement(`div`);
     this.div.style.left = Shape.randomPosition(this.width);
     this.div.style.top = Shape.randomPosition(this.height);
-    // this.div.click(this.testFunc());
+    this.div.click(() => this.describe());
+    // this.div.dblclick(() => this.doubleClick());
     shapeContainer.append(this.div);
   }
 
@@ -44,7 +45,20 @@ class Shape {
   //     this.width = width;
   //     this.height = height;
   //   }
-  describe() {}
+  describe() {
+    // let navName = $(`#sidenavShapeName`)
+    // let navWidth = $(`#sidenavWidth`)
+    // let navHeight = $(`#sidenavHeight`)
+    // let navRadius = $(`#sidenavRadius`)
+    // let navArea = $(`#sidenavArea`)
+    // let navPerimeter = $(`#sidenavPerimeter`)
+
+    console.log(`single click worked!`);
+  }
+
+  doubleClick() {
+    console.log(`double click worked!`);
+  }
 }
 
 class Square extends Shape {

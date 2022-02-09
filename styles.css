@@ -1,11 +1,11 @@
 /* https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp */
 
 .sidenav {
-  width: 200px;
+  /* width: 300px; */
   position: fixed;
   z-index: 1;
-  top: 20px;
-  /* left: 200px; */
+  top: 30px;
+  left: 600px;
   background: #eee;
   overflow-x: hidden;
   padding: 8px 0;
