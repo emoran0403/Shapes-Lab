@@ -1,7 +1,7 @@
 /* https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp */
 
 .sidenav {
-  /* width: 300px; */
+  width: 290px;
   position: fixed;
   z-index: 1;
   top: 30px;
@@ -19,9 +19,9 @@
   display: block;
 }
 
-.sidenav div:hover {
+/* .sidenav div:hover {
   color: #064579;
-}
+} */
 
 #shapeContainer {
   height: 600px;

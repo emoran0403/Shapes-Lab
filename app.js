@@ -13,14 +13,24 @@
  */
 
 class Shape {
+  static id = 0;
+
+  static randomPosition(sizeOffSet) {
+    let somePosition = Math.floor(Math.random() * (601 - sizeOffSet));
+    return `${somePosition}px`;
+  }
+
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.div = document.createElement(`div`);
-    this.div.style.left = Shape.randomPosition(this.width);
-    this.div.style.top = Shape.randomPosition(this.height);
+    this.id = Shape.id++;
+    this.div = $(`<div id="${this.id}">`);
+    this.div.css("left", Shape.randomPosition(this.width));
+    this.div.css("top", Shape.randomPosition(this.height));
+    this.div.css("height", `${height}px`);
+    this.div.css("width", `${width}px`);
     this.div.click(() => this.describe());
-    // this.div.dblclick(() => this.doubleClick());
+    this.div.dblclick(() => this.doubleClick());
     shapeContainer.append(this.div);
   }
 
@@ -28,10 +38,6 @@ class Shape {
   //   console.log(`click testfunc is working`);
   // }
 
-  static randomPosition(sizeOffSet) {
-    let somePosition = Math.floor(Math.random() * (601 - sizeOffSet));
-    return `${somePosition}px`;
-  }
   // my next challenge is playing with the numbers to make sure there are no shapes going outside the border
   get area() {
     return this.calculateArea();
@@ -46,19 +52,42 @@ class Shape {
   //     this.height = height;
   //   }
   describe() {
-    // let navName = $(`#sidenavShapeName`)
-    // let navWidth = $(`#sidenavWidth`)
-    // let navHeight = $(`#sidenavHeight`)
-    // let navRadius = $(`#sidenavRadius`)
-    // let navArea = $(`#sidenavArea`)
-    // let navPerimeter = $(`#sidenavPerimeter`)
+    navName.text(`Shape Name: ${this.name}`);
 
-    console.log(`single click worked!`);
+    if (this.name === `Triangle`) {
+      navWidth.text(`Width: ${this.height}px`);
+    } else {
+      navWidth.text(`Width: ${this.width}px`);
+    }
+
+    navHeight.text(`Height: ${this.height}px`);
+
+    if (this.name === `Circle`) {
+      navRadius.text(`Radius: ${this.width / 2}`);
+      navPerimeter.text(`Circumference: `);
+    } else {
+      navRadius.text(`Radius: n/a`);
+      navPerimeter.text(`Perimeter: `);
+    }
+
+    navArea.text(`Area: ${this.area}px²`);
+
+    // console.log(`single click worked!`); //*logging
   }
 
   doubleClick() {
-    console.log(`double click worked!`);
+    this.div.remove();
+    navName.text(`Shape Name: `);
+    navWidth.text(`Width: `);
+    navHeight.text(`Height: `);
+    navRadius.text(`Radius: `);
+    navPerimeter.text(`Perimeter: `);
+    navArea.text(`Area: `);
+
+    // console.log(`double click worked!`); //*logging
   }
+
+  calculatePerimeter() {}
 }
 
 class Square extends Shape {
@@ -66,9 +95,10 @@ class Square extends Shape {
   // area does not need to be changed
   constructor(sideLength) {
     super(sideLength, sideLength);
-    this.div.style.height = `${sideLength}px`;
-    this.div.style.width = `${sideLength}px`;
-    this.div.classList.add(`square`);
+    // this.div.style.height = `${sideLength}px`;
+    // this.div.style.width = `${sideLength}px`;
+    this.div.addClass(`square`);
+    this.name = `Square`;
   }
 }
 
@@ -78,9 +108,10 @@ class Rectangle extends Shape {
 
   constructor(width, height) {
     super(width, height);
-    this.div.style.height = `${height}px`;
-    this.div.style.width = `${width}px`;
-    this.div.classList.add(`rectangle`);
+    // this.div.style.height = `${height}px`;
+    // this.div.style.width = `${width}px`;
+    this.div.addClass(`rectangle`);
+    this.name = `Rectangle`;
   }
 }
 
@@ -89,9 +120,10 @@ class Circle extends Shape {
   // area needs to take either width or height, then divide by 2 to get back to radius, then * radius * pi
   constructor(radius) {
     super(2 * radius, 2 * radius);
-    this.div.style.height = `${radius}px`;
-    this.div.style.width = `${radius}px`;
-    this.div.classList.add(`circle`);
+    // this.div.style.height = `${radius}px`;
+    // this.div.style.width = `${radius}px`;
+    this.div.addClass(`circle`);
+    this.name = `Circle`;
   }
 
   calculateArea() {
@@ -110,16 +142,26 @@ class Triangle extends Shape {
 
   constructor(height) {
     super(0, height);
-    this.div.style.borderRight = `${height}px solid transparent`;
-    this.div.style.borderBottom = `${height}px solid yellow`;
+    this.div.css("left", Shape.randomPosition(this.height));
+
+    this.div.css("borderRight", `${height}px solid transparent`); // this is dom styling
+    this.div.css("borderBottom", `${height}px solid yellow`);
     // this.div.css(border)
-    this.div.classList.add(`triangle`);
+    this.div.addClass(`triangle`);
+    this.name = `Triangle`;
   }
 
   calculateArea() {
     return 0.5 * this.height * this.height;
   }
 }
+
+let navName = $(`#sidenavShapeName`);
+let navWidth = $(`#sidenavWidth`);
+let navHeight = $(`#sidenavHeight`);
+let navRadius = $(`#sidenavRadius`);
+let navArea = $(`#sidenavArea`);
+let navPerimeter = $(`#sidenavPerimeter`);
 
 let shapeContainer = $(`#shapeContainer`);
 
